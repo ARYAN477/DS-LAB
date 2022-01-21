@@ -1,0 +1,89 @@
+#include <stdio.h>
+#include<stdlib.h>
+#include <string.h>
+struct node{
+    struct node* prev;
+    char name[10];
+    long number;
+    int likes;
+    struct node* next;
+};
+
+struct node* head=NULL;
+
+void insert(char n[10],long num,int l){
+    struct node* ptr=(struct node*)malloc(sizeof(struct node));
+    if(head==NULL)
+        {
+            head=ptr;
+            ptr->prev=NULL;
+            strcpy(ptr->name,n);
+            ptr->number=num;
+            ptr->likes=l;
+            ptr->next=NULL;
+            
+        }
+    else 
+       { head->prev=ptr;
+        ptr->next=head;
+        strcpy(ptr->name,n);
+        ptr->number=num;
+        ptr->likes=l;
+        ptr->prev=NULL;
+        head=ptr;
+       }
+       
+       
+}
+
+void display(){
+    struct node* temp=head;
+    char winner[10];
+    int max=0;
+    long win_no;
+    do{
+        if(head==NULL)
+            printf("The list is empty");
+        else
+            {   if(max<temp->likes)
+                    {
+                        max=temp->likes;
+                        win_no=temp->number;
+                        strcpy(winner,temp->name);
+                    }
+                
+                temp=temp->next;
+            }
+    }
+    while(temp!=NULL);
+    puts(winner);
+    printf("%ld",win_no);
+    
+}
+
+
+
+int main()
+{   printf("Enter one of the options\n1.Insert \n2.Display\n3.Exit\n");
+    int c=1;
+    char name[10]="aneesh";
+    long number;
+    int likes;
+    while(c!=3)
+{    scanf("%d",&c);
+    switch(c){
+        case 1: printf("Enter the likes in the order name,mob_no.,likes: ");
+                scanf("%s",name);
+                scanf("%ld",&number);
+                scanf("%d",&likes);
+                insert(name,number,likes);
+                printf("Enter the option");
+                break;
+        case 2:display();
+        case 3:break;
+        
+    }
+  
+}
+    return 0;
+}
